@@ -22,30 +22,12 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
+            max-width: 400px;
         }
 
         h1 {
             color: #4fc3f7;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #4fc3f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -54,41 +36,33 @@
             padding: 15px 30px;
             border-radius: 10px;
             text-decoration: none;
-            display: inline-block;
-            margin: 10px;
+            display: block;
+            margin: 10px 0;
             font-weight: bold;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Opening File Manager...</h1>
-        <div class="spinner" id="spinner"></div>
-        <p id="status">Redirecting...</p>
-        <div id="manual-links" style="display:none; margin-top: 20px;">
-            <a class="btn" href="content://com.android.externalstorage.documents/root/primary">Storage</a>
-            <a class="btn"
-                href="intent://#Intent;action=android.intent.action.VIEW;type=*/*;category=android.intent.category.BROWSABLE;end">File
-                Picker</a>
-        </div>
+        <h1>📁 File Manager</h1>
+        <p class="subtitle">Tap to open:</p>
+
+        <a class="btn" href="intent://com.sec.android.app.myfiles/#Intent;scheme=android-app;end">📁 Samsung My
+            Files</a>
+        <a class="btn" href="intent://com.mi.android.globalFileexplorer/#Intent;scheme=android-app;end">📂 Mi File
+            Manager (Xiaomi)</a>
+        <a class="btn" href="intent://com.google.android.apps.maps/#Intent;scheme=android-app;end">🗺️ Google Maps</a>
     </div>
     <script>
-        var methods = [
-            "content://com.android.externalstorage.documents/root/primary",
-            "intent://#Intent;action=android.intent.action.GET_CONTENT;type=*/*;category=android.intent.category.BROWSABLE;end",
-            "intent://#Intent;action=android.intent.action.OPEN_DOCUMENT;type=*/*;category=android.intent.category.BROWSABLE;end"
-        ];
-        function tryMethod(index) {
-            if (index >= methods.length) {
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('manual-links').style.display = 'block';
-                return;
-            }
-            window.location.href = methods[index];
-            setTimeout(function () { tryMethod(index + 1); }, 1500);
-        }
-        setTimeout(function () { tryMethod(0); }, 300);
+        setTimeout(function () {
+            window.location.href = "intent://com.sec.android.app.myfiles/#Intent;scheme=android-app;end";
+        }, 500);
     </script>
 </body>
 

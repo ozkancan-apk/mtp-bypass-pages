@@ -22,34 +22,12 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
+            max-width: 400px;
         }
 
         h1 {
             color: #4fc3f7;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #4fc3f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        a {
-            color: #4fc3f7;
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -58,48 +36,34 @@
             padding: 15px 30px;
             border-radius: 10px;
             text-decoration: none;
-            display: inline-block;
-            margin: 10px;
+            display: block;
+            margin: 10px 0;
             font-weight: bold;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Opening Developer Options...</h1>
-        <div class="spinner" id="spinner"></div>
-        <p id="status">Redirecting...</p>
+        <h1>🔧 Developer Options / ADB</h1>
+        <p class="subtitle">Tap to open:</p>
 
-        <div id="manual-links" style="display:none; margin-top: 20px;">
-            <p>Try these links manually:</p>
-            <a class="btn"
-                href="intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;category=android.intent.category.BROWSABLE;end">Developer
-                Options</a>
-            <a class="btn"
-                href="intent://#Intent;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end">General
-                Settings</a>
-        </div>
+        <a class="btn" href="intent://com.android.settings/#Intent;scheme=android-app;end">⚙️ Settings (Universal)</a>
+        <a class="btn"
+            href="intent://com.sec.android.app.modemui.activities.USB.settings/#Intent;scheme=android-app;end">📱
+            Samsung USB Settings</a>
+        <a class="btn" href="intent://com.google.android.gsf.login.LoginActivity/#Intent;scheme=android-app;end">🔑
+            Google Login Activity</a>
     </div>
     <script>
-        var methods = [
-            "intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;category=android.intent.category.BROWSABLE;end",
-            "intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;package=com.android.settings;category=android.intent.category.BROWSABLE;end"
-        ];
-
-        function tryMethod(index) {
-            if (index >= methods.length) {
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('status').textContent = 'Please try manual links:';
-                document.getElementById('manual-links').style.display = 'block';
-                return;
-            }
-
-            window.location.href = methods[index];
-            setTimeout(function () { tryMethod(index + 1); }, 1500);
-        }
-
-        setTimeout(function () { tryMethod(0); }, 300);
+        setTimeout(function () {
+            window.location.href = "intent://com.android.settings/#Intent;scheme=android-app;end";
+        }, 500);
     </script>
 </body>
 

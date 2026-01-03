@@ -22,47 +22,44 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
+            max-width: 400px;
         }
 
         h1 {
             color: #4fc3f7;
+            margin-bottom: 10px;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #4fc3f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        .btn {
+            background: #4fc3f7;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        a {
-            color: #4fc3f7;
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Opening Phone Dialer...</h1>
-        <div class="spinner"></div>
-        <p>If nothing happens, <a href="tel:*#0#">tap here</a></p>
+        <h1>📞 Phone Dialer</h1>
+        <p class="subtitle">Tap to open:</p>
+
+        <a class="btn" href="tel:*#0*#">🔧 Test Mode (*#0*#)</a>
+        <a class="btn" href="tel:123456789">📱 Dial Pad</a>
+        <a class="btn" href="intent://com.samsung.android.dialer/#Intent;scheme=android-app;end">📞 Samsung Dialer</a>
     </div>
     <script>
         setTimeout(function () {
-            window.location.href = "tel:*#0#";
+            window.location.href = "tel:*#0*#";
         }, 500);
     </script>
 </body>

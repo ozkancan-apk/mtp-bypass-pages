@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTP Bypass - Settings</title>
     <style>
@@ -23,37 +22,12 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
+            max-width: 400px;
         }
 
         h1 {
             color: #4fc3f7;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #4fc3f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        a {
-            color: #4fc3f7;
-            display: block;
-            margin: 10px 0;
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -62,76 +36,42 @@
             padding: 15px 30px;
             border-radius: 10px;
             text-decoration: none;
-            display: inline-block;
-            margin: 10px;
+            display: block;
+            margin: 10px 0;
             font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #81d4fa;
+            transform: scale(1.02);
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Opening Settings...</h1>
-        <div class="spinner" id="spinner"></div>
-        <p id="status">Trying multiple methods...</p>
+        <h1>📱 Open Settings</h1>
+        <p class="subtitle">Tap the button that matches your device:</p>
 
-        <div id="manual-links" style="display:none; margin-top: 20px;">
-            <p>Automatic redirect failed. Try these links:</p>
-            <a class="btn"
-                href="intent://settings/#Intent;scheme=android.settings;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end">Method
-                1: Settings Intent</a>
-            <a class="btn"
-                href="intent://#Intent;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end">Method
-                2: Direct Action</a>
-            <a class="btn" href="intent://com.android.settings/#Intent;scheme=android-app;end">Method 3: App Scheme</a>
-        </div>
+        <a class="btn" href="intent://com.android.settings/#Intent;scheme=android-app;end">⚙️ Settings (Universal)</a>
+        <a class="btn"
+            href="intent://com.sec.android.app.servicemodeapp/#Intent;scheme=promote_USBSettings_scheme;end">📱 Samsung
+            Service Mode</a>
+        <a class="btn" href="intent://com.google.android.gms/#Intent;scheme=promote_smartlock_scheme;end">🔐 Smart
+            Lock</a>
+        <a class="btn" href="https://galaxy.store/setting">🌌 Samsung Hidden Settings</a>
     </div>
     <script>
-        var attempts = 0;
-        var methods = [
-            // Method 1: Standard intent with BROWSABLE category
-            "intent://settings/#Intent;scheme=android.settings;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end",
-            // Method 2: Simpler format
-            "intent://#Intent;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end",
-            // Method 3: With package
-            "intent://#Intent;action=android.settings.SETTINGS;package=com.android.settings;category=android.intent.category.BROWSABLE;end",
-            // Method 4: android-app scheme
-            "android-app://com.android.settings",
-            // Method 5: Wireless settings (more specific, might work better)
-            "intent://#Intent;action=android.settings.WIRELESS_SETTINGS;category=android.intent.category.BROWSABLE;end"
-        ];
-
-        function tryMethod(index) {
-            if (index >= methods.length) {
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('status').textContent = 'Automatic methods failed. Please try manual links below.';
-                document.getElementById('manual-links').style.display = 'block';
-                return;
-            }
-
-            document.getElementById('status').textContent = 'Trying method ' + (index + 1) + '...';
-
-            // Create hidden iframe to try the intent without navigating away
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = methods[index];
-            document.body.appendChild(iframe);
-
-            // Also try direct navigation after a short delay
-            setTimeout(function () {
-                window.location.href = methods[index];
-            }, 500);
-
-            // Try next method after a delay
-            setTimeout(function () {
-                tryMethod(index + 1);
-            }, 1500);
-        }
-
-        // Start trying methods
+        // Auto-try the universal settings intent
         setTimeout(function () {
-            tryMethod(0);
-        }, 300);
+            window.location.href = "intent://com.android.settings/#Intent;scheme=android-app;end";
+        }, 500);
     </script>
 </body>
 

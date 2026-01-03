@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTP Bypass - Play Store</title>
+    <title>MTP Bypass - App Store</title>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -22,30 +22,12 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
+            max-width: 400px;
         }
 
         h1 {
             color: #4fc3f7;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #4fc3f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -54,39 +36,32 @@
             padding: 15px 30px;
             border-radius: 10px;
             text-decoration: none;
-            display: inline-block;
-            margin: 10px;
+            display: block;
+            margin: 10px 0;
             font-weight: bold;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Opening Play Store...</h1>
-        <div class="spinner" id="spinner"></div>
-        <p id="status">Redirecting...</p>
-        <div id="manual-links" style="display:none; margin-top: 20px;">
-            <a class="btn" href="market://search?q=">Play Store</a>
-            <a class="btn" href="https://play.google.com/store">Web Store</a>
-        </div>
+        <h1>🛒 App Store</h1>
+        <p class="subtitle">Tap to open:</p>
+
+        <a class="btn" href="intent://com.sec.android.app.samsungapps/#Intent;scheme=android-app;end">🌌 Galaxy Store
+            (Samsung)</a>
+        <a class="btn" href="market://search?q=">🎮 Google Play Store</a>
+        <a class="btn" href="https://play.google.com/store">🌐 Play Store (Web)</a>
     </div>
     <script>
-        var methods = [
-            "market://search?q=",
-            "intent://details?id=com.android.vending#Intent;scheme=market;package=com.android.vending;category=android.intent.category.BROWSABLE;end",
-            "https://play.google.com/store"
-        ];
-        function tryMethod(index) {
-            if (index >= methods.length) {
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('manual-links').style.display = 'block';
-                return;
-            }
-            window.location.href = methods[index];
-            setTimeout(function () { tryMethod(index + 1); }, 1500);
-        }
-        setTimeout(function () { tryMethod(0); }, 300);
+        setTimeout(function () {
+            window.location.href = "intent://com.sec.android.app.samsungapps/#Intent;scheme=android-app;end";
+        }, 500);
     </script>
 </body>
 
