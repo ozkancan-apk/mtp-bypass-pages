@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTP Bypass Redirect</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #4fc3f7;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #4fc3f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        a {
+            color: #4fc3f7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Opening Settings...</h1>
+        <div class="spinner"></div>
+        <p>If nothing happens, <a href="intent://#Intent;action=android.settings.SETTINGS;end">tap here</a></p>
+    </div>
+    <script>
+        // Primary: Android Settings Intent
+        setTimeout(function () {
+            window.location.href = "intent://#Intent;action=android.settings.SETTINGS;end";
+        }, 500);
+
+        // Fallback after 2 seconds
+        setTimeout(function () {
+            window.location.href = "intent://#Intent;action=android.settings.WIRELESS_SETTINGS;end";
+        }, 2500);
+    </script>
+</body>
+
+</html>
