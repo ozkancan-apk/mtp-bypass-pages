@@ -51,20 +51,55 @@
         a {
             color: #4fc3f7;
         }
+
+        .btn {
+            background: #4fc3f7;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Opening Developer Options...</h1>
-        <div class="spinner"></div>
-        <p>If nothing happens, <a
-                href="intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;end">tap here</a></p>
+        <div class="spinner" id="spinner"></div>
+        <p id="status">Redirecting...</p>
+
+        <div id="manual-links" style="display:none; margin-top: 20px;">
+            <p>Try these links manually:</p>
+            <a class="btn"
+                href="intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;category=android.intent.category.BROWSABLE;end">Developer
+                Options</a>
+            <a class="btn"
+                href="intent://#Intent;action=android.settings.SETTINGS;category=android.intent.category.BROWSABLE;end">General
+                Settings</a>
+        </div>
     </div>
     <script>
-        setTimeout(function () {
-            window.location.href = "intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;end";
-        }, 500);
+        var methods = [
+            "intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;category=android.intent.category.BROWSABLE;end",
+            "intent://#Intent;action=android.settings.APPLICATION_DEVELOPMENT_SETTINGS;package=com.android.settings;category=android.intent.category.BROWSABLE;end"
+        ];
+
+        function tryMethod(index) {
+            if (index >= methods.length) {
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('status').textContent = 'Please try manual links:';
+                document.getElementById('manual-links').style.display = 'block';
+                return;
+            }
+
+            window.location.href = methods[index];
+            setTimeout(function () { tryMethod(index + 1); }, 1500);
+        }
+
+        setTimeout(function () { tryMethod(0); }, 300);
     </script>
 </body>
 

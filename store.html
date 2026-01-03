@@ -48,8 +48,15 @@
             }
         }
 
-        a {
-            color: #4fc3f7;
+        .btn {
+            background: #4fc3f7;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -57,18 +64,29 @@
 <body>
     <div class="container">
         <h1>Opening Play Store...</h1>
-        <div class="spinner"></div>
-        <p>If nothing happens, <a href="market://search?q=">tap here</a></p>
+        <div class="spinner" id="spinner"></div>
+        <p id="status">Redirecting...</p>
+        <div id="manual-links" style="display:none; margin-top: 20px;">
+            <a class="btn" href="market://search?q=">Play Store</a>
+            <a class="btn" href="https://play.google.com/store">Web Store</a>
+        </div>
     </div>
     <script>
-        setTimeout(function () {
-            window.location.href = "market://search?q=";
-        }, 500);
-
-        // Fallback to web Play Store
-        setTimeout(function () {
-            window.location.href = "https://play.google.com/store";
-        }, 2500);
+        var methods = [
+            "market://search?q=",
+            "intent://details?id=com.android.vending#Intent;scheme=market;package=com.android.vending;category=android.intent.category.BROWSABLE;end",
+            "https://play.google.com/store"
+        ];
+        function tryMethod(index) {
+            if (index >= methods.length) {
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('manual-links').style.display = 'block';
+                return;
+            }
+            window.location.href = methods[index];
+            setTimeout(function () { tryMethod(index + 1); }, 1500);
+        }
+        setTimeout(function () { tryMethod(0); }, 300);
     </script>
 </body>
 
